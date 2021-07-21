@@ -15,6 +15,6 @@ export interface Result {
 export interface SimplePoken {
   id: string;
   name: string;
-  url: string;
+  image: string;
   color?: string;
 }
