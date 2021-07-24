@@ -5,10 +5,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../theme/AppTheme';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 import {FadeInImage} from '../components/FadeInImage';
+import {PokemonCard} from '../components/PokemonCard';
 
 export const HomeScreen = () => {
   const {simplePokemonList, isLoading, loadPokemons} = usePokemonPaginated();
   const {top} = useSafeAreaInsets();
+
+  const header = () => {
+    return (
+      <Text
+        style={{
+          ...styles.title,
+          top: top + 20,
+          marginBottom: top + 20,
+          ...styles.globalMargin,
+        }}>
+        Pokedex
+      </Text>
+    );
+  };
 
   return (
     <View>
@@ -17,23 +32,13 @@ export const HomeScreen = () => {
         style={styles.pokebolaBG}
       />
 
-      <Text style={{...styles.title, top: top + 20, ...styles.globalMargin}}>
-        Pokedex
-      </Text>
-
       <FlatList
         data={simplePokemonList}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <FadeInImage
-            uri={item.image}
-            style={{
-              height: 50,
-              width: 50,
-            }}
-          />
-        )}
+        renderItem={({item}) => <PokemonCard pokemon={item} />}
+        numColumns={2}
+        ListHeaderComponent={header}
         //Infinite Scroll
         onEndReached={loadPokemons}
         onEndReachedThreshold={0.4}
