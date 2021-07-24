@@ -32,26 +32,31 @@ export const HomeScreen = () => {
         style={styles.pokebolaBG}
       />
 
-      <FlatList
-        data={simplePokemonList}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => <PokemonCard pokemon={item} />}
-        numColumns={2}
-        ListHeaderComponent={header}
-        //Infinite Scroll
-        onEndReached={loadPokemons}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator
-            style={{
-              height: 180,
-            }}
-            size={20}
-            color="gray"
-          />
-        }
-      />
+      <View
+        style={{
+          alignItems: 'center',
+        }}>
+        <FlatList
+          data={simplePokemonList}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => <PokemonCard pokemon={item} />}
+          numColumns={2}
+          ListHeaderComponent={header}
+          //Infinite Scroll
+          onEndReached={loadPokemons}
+          onEndReachedThreshold={0.4}
+          ListFooterComponent={
+            <ActivityIndicator
+              style={{
+                height: 180,
+              }}
+              size={20}
+              color="gray"
+            />
+          }
+        />
+      </View>
     </View>
   );
 };
