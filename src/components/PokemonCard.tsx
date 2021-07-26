@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {SimplePoken} from '../interfaces/PokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
+import {useRef} from 'react';
 
 interface Props {
   pokemon: SimplePoken;
@@ -20,8 +21,12 @@ const windowWidth = Dimensions.get('window').width;
 
 export const PokemonCard = ({pokemon}: Props) => {
   const [bgColor, setBgColor] = useState('grey');
+  const isMounted = useRef(true);
 
   const getColors = async () => {
+    //Evitar que pase el warning con el estado.
+    if (!isMounted.current) return;
+
     const colors = await ImageColors.getColors(pokemon.image, {
       fallback: 'grey',
     });
@@ -33,6 +38,11 @@ export const PokemonCard = ({pokemon}: Props) => {
 
   useEffect(() => {
     getColors();
+
+    //Este funcion se dispara cuando el componente se va a desmontar
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return (
