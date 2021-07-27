@@ -53,7 +53,8 @@ export const PokemonCard = ({pokemon}: Props) => {
           SimplePokemon: pokemon,
           color: bgColor,
         })
-      }>
+      }
+      activeOpacity={0.2}>
       <View
         style={{
           ...styles.cardContainer,
