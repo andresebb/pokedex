@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   View,
   Image,
-  platform,
 } from 'react-native';
 import {SimplePoken} from '../interfaces/PokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 import {useRef} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   pokemon: SimplePoken;
@@ -22,6 +22,7 @@ const windowWidth = Dimensions.get('window').width;
 export const PokemonCard = ({pokemon}: Props) => {
   const [bgColor, setBgColor] = useState('grey');
   const isMounted = useRef(true);
+  const navigator = useNavigation();
 
   const getColors = async () => {
     //Evitar que pase el warning con el estado.
@@ -46,7 +47,13 @@ export const PokemonCard = ({pokemon}: Props) => {
   }, []);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() =>
+        navigator.navigate('PokemonScreen', {
+          SimplePokemon: pokemon,
+          color: bgColor,
+        })
+      }>
       <View
         style={{
           ...styles.cardContainer,
