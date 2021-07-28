@@ -19,6 +19,7 @@ export const usePokemonPaginated = () => {
     const resp = await pokemonApi.get<PokemonPaginatedResponse>(
       nextPageUrl.current,
     );
+    // console.log(resp.data.next);
     nextPageUrl.current = resp.data.next;
 
     mapPokemonList(resp.data.results);
