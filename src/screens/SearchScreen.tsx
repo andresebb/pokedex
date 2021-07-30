@@ -24,6 +24,7 @@ export const SearchScreen = () => {
   const [term, setTerm] = useState('');
   const {top} = useSafeAreaInsets();
 
+  //filtrar pokemones
   useEffect(() => {
     if (term.length === 0) {
       return setPokemonFiltered([]);
@@ -31,6 +32,7 @@ export const SearchScreen = () => {
 
     console.log(isNaN(Number(term)));
 
+    //Si esto no es un numero busco por string, en caso contrario busco por numero
     if (isNaN(Number(term))) {
       setPokemonFiltered(
         simplePokemonList.filter(poke =>
